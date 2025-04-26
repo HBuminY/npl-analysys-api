@@ -33,6 +33,7 @@ def get_emotion():
     print(f"Received emotion analysis request with text: {request.json.get('text', '')}", flush=True)
     text = request.json.get('text', '')
     emotion = analyze_emotion(text)
+    print(f"analyzed response: {emotion}", flush=True)
     return emotion
 
 @app.before_request
