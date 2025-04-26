@@ -41,13 +41,13 @@ def analyze_emotion(text):
 
     # If no keyword found, fallback to sentiment
     if compound >= 0.5 and pos > 0.5:
-        emotional_avg["happy"] += 0.4
+        emotional_avg["happy"] += 0.2
     elif compound <= -0.5 and neg > 0.5:
-        emotional_avg["angry"] += 0.4
+        emotional_avg["angry"] += 0.3
     elif -0.3 < compound < 0.3 and neu > 0.6:
         emotional_avg["surprised"] += 0.4
     else:
-        emotional_avg["sad"] += 0.4
+        emotional_avg["sad"] += 0.5
 
     result = max(emotional_avg, key=emotional_avg.get)
     return result
