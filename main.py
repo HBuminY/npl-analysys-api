@@ -30,14 +30,14 @@ def hello():
 
 @app.route('/emotion', methods=['POST'])
 def get_emotion():
-    print(f"Received emotion analysis request with text: {request.json.get('text', '')}")
+    print(f"Received emotion analysis request with text: {request.json.get('text', '')}", flush=true)
     text = request.json.get('text', '')
     emotion = analyze_emotion(text)
     return emotion
 
 @app.before_request
 def log_request():
-    print(f"Incoming {request.method} request to {request.path}")
+    print(f"Incoming {request.method} request to {request.path}", flush=true)
 
 if __name__ == "__main__":
     app.run(host='0.0.0.0', port=5000)
