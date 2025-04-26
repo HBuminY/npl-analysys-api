@@ -11,18 +11,43 @@ app = Flask(__name__)
 def analyze_emotion(text):
     sia = SentimentIntensityAnalyzer()
     scores = sia.polarity_scores(text)
-    
     compound = scores['compound']
-    intensity = abs(compound)
-    
-    if compound >= 0.5:
+    pos = scores['pos']
+    neg = scores['neg']
+    neu = scores['neu']
+
+    text_lower = text.lower()
+
+    # Keyword-based hints
+    happy_keywords = ["love", "great", "awesome", "fantastic", "joy", "glad", "good"]
+    sad_keywords = ["sad", "down", "depressed", "upset", "cry", "unhappy"]
+    angry_keywords = ["angry", "mad", "furious", "annoyed", "hate", "irritated"]
+    surprised_keywords = ["wow", "surprised", "unexpected", "shocked", "amazed", "astonished"]
+
+    # Check keywords first
+    for word in happy_keywords:
+        if word in text_lower:
+            return "happy"
+    for word in sad_keywords:
+        if word in text_lower:
+            return "sad"
+    for word in angry_keywords:
+        if word in text_lower:
+            return "angry"
+    for word in surprised_keywords:
+        if word in text_lower:
+            return "surprised"
+
+    # If no keyword found, fallback to sentiment
+    if compound >= 0.5 and pos > 0.5:
         return "happy"
-    elif compound <= -0.5:
+    elif compound <= -0.5 and neg > 0.5:
         return "angry"
-    elif -0.5 < compound < 0.5 and intensity >= 0.2:
+    elif -0.3 < compound < 0.3 and neu > 0.6:
         return "surprised"
     else:
         return "sad"
+
 
 @app.route('/')
 def hello():
