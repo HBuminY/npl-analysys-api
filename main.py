@@ -40,4 +40,4 @@ def log_request():
     print(f"Incoming {request.method} request to {request.path}")
 
 if __name__ == "__main__":
-    app.run(host='0.0.0.0', port=process.env.PORT or 5000)
+    app.run(host='0.0.0.0', port=5000)
