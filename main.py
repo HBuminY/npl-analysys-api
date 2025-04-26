@@ -33,7 +33,7 @@ def get_emotion():
     print(f"Received emotion analysis request with text: {request.json.get('text', '')}")
     text = request.json.get('text', '')
     emotion = analyze_emotion(text)
-    return jsonify({"result": emotion})
+    return emotion
 
 @app.before_request
 def log_request():
